@@ -1,0 +1,7 @@
+docker run -it ubuntu bash
+mkdir -p /usr/src/app
+nano /usr/src/app/index.js
+console.log('Hello World')
+ctrl x
+cat /usr/src/app/index.js
+exit

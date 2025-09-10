@@ -1,0 +1,26 @@
+# Step 1: Start MongoDB container
+$ docker-compose up -d
+
+# Step 2: Use docker exec to get inside the container
+# First, find the container name
+$ docker ps
+CONTAINER ID      IMAGE                           COMMAND              CREATED       STATUS              PORTS                    NAMES
+93603d347475   initialized-mongo           "docker-entrypoint.s…"   2 minutes ago   Up 2 minutes    0.0.0.0:3456->27017/tcp  todo-backend-mongo-1
+
+# Now use the container name to execute the shell
+$ docker exec -it todo-backend-mongo-1 /bin/bash
+
+# Step 3: Open Mongo CLI $ mongosh -u root -p example 
+Current Mongosh version: 1.10.1 Connecting to: mongodb://<credentials>@127.0.0.1:27017/?authMechanism=DEFAULT&directConnection=true Using the "admin" database. For more information, see https://docs.mongodb.com/manual/
+...
+test> use todos
+switched to db todos
+
+todos> db.todos.insertOne({ text: "Increase the number of tools in my tool belt", done: false })
+{
+"acknowledged": true,
+"insertedId": ObjectId("68bf4e2ef007b6ba9cfa3350")
+}
+
+todos> db.todos.find()
+

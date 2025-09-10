@@ -1,0 +1,4 @@
+docker run -it ubuntu bash
+mkdir -p /usr/src/app
+echo 'console.log("Hello from inside the container!");' > /usr/src/app/index.js
+exit

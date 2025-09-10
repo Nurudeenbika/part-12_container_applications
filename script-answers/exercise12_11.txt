@@ -1,0 +1,52 @@
+Step 1: Access the Redis container
+First, find the name or ID of your Redis container using 'docker ps'.
+The container name is 'todo-backend-redis-1'.
+$ docker exec -it todo-backend-redis-1 redis-cli
+127.0.0.1:6379>
+
+Step 2: List all keys
+This command shows you the keys currently stored in the database.
+127.0.0.1:6379> KEYS *
+
+"added_todos"
+127.0.0.1:6379>
+
+Step 3: Get the value of the 'added_todos' key
+This will show you the current number of todos. The value may vary.
+127.0.0.1:6379> GET added_todos
+"1"
+127.0.0.1:6379>
+
+Step 4: Set the value of the counter to 9001
+The SET command is used to set the value of a key.
+127.0.0.1:6379> SET added_todos 9001
+OK
+127.0.0.1:6379>
+
+Step 5: Verify the new value
+Check the value from the Redis CLI again.
+127.0.0.1:6379> GET added_todos
+"9001"
+127.0.0.1:6379>
+
+To verify this works, go to http://localhost:3000/statistics in your browser.
+The page should now display {"added_todos": 9001}.
+Step 6: Create a new todo and check the counter again
+After creating a new todo with Postman, the counter should have increased.
+127.0.0.1:6379> GET added_todos
+"9002"
+127.0.0.1:6379>
+
+Step 7: Delete the key from the CLI
+Use the DEL command to remove the key from the database.
+127.0.0.1:6379> DEL added_todos
+(integer) 1
+127.0.0.1:6379>
+
+Step 8: Verify the key is gone
+127.0.0.1:6379> GET added_todos
+(nil)
+127.0.0.1:6379>
+
+The counter will now show 0 on the statistics page. When you add a new todo,
+the counter will be recreated with a value of 1 and continue to increment.
